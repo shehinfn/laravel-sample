@@ -11,14 +11,21 @@ namespace App\Repositories;
 
 abstract class BaseRepository implements BaseRepositoryInterface
 {
-
     protected $model;
+    private $key;
 
     abstract public function getModelClass(): string;
 
     public function __construct()
     {
         $this->model    =   app($this->getModelClass());
+    }
+
+    public function setKeyName($key){
+        $this->key = $key;
+    }
+    public function getKeyName(){
+        return $this->key;
     }
 
     public function getOneById($id)
@@ -28,7 +35,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function getByIds($ids)
     {
-        return $this->model->whereIN($ids);
+        return $this->model->whereIn($this->getKeyName(),$ids);
     }
 
     public function getAll()

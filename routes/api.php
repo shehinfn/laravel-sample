@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('register',function (Request $request) {
+    return [
+        "msg"=>"registered sucessfully"
+    ];
+}
+    );//for mail listing
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
